@@ -74,5 +74,31 @@ document.addEventListener('DOMContentLoaded', () => {
       .attr('r', d => radiusScale(d.value))
       .attr('fill', '#69b3a2')
       .attr('stroke', '#333')
+      .on('mouseover', function(e, d) {
+        showTooltip(e, d);
+      })
+      .on('mouseout', hideTooltip);
+
+    // Tooltip
+    function showTooltip(e, d) {
+      let html = `<strong>${d.label}</strong><br>Value: ${d.value}`;
+      if (d.details) {
+        html += `<br>Region: ${d.details.region || ''}`;
+      }
+      d3.select('body').append('div')
+        .attr('id', 'tooltip')
+        
+        .style('position', 'absolute')
+        .style('left', (e.pageX + 10) + 'px')
+        .style('top', (e.pageY + 10) + 'px')
+        .style('background', '#fff')
+        .style('border', '1px solid #ccc')
+        .style('padding', '8px')
+        .style('pointer-events', 'none')
+        .html(html);
+    }
+    function hideTooltip() {
+      d3.select('#tooltip').remove();
+    }
   }
 });
