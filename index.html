@@ -1,0 +1,29 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Control Room - JavaScript Test</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <form id="plot-form">
+    <label for="plot-option">Select plot option:</label>
+    <select id="plot-option">
+      <optgroup label="By country">
+        <option value="population">Population size</option>
+        <option value="borders">Number of borders</option>
+        <option value="timezones">Number of timezones</option>
+        <option value="languages">Number of languages</option>
+      </optgroup>
+      <optgroup label="By region">
+        <option value="countries-in-region">Number of countries in the region</option>
+        <option value="unique-timezones-in-region">Number of unique timezones in the region</option>
+      </optgroup>
+    </select>
+  </form>
+  <div id="chart"></div>
+  <table id="data-table"></table>
+  <script src="main.js"></script>
+</body>
+</html>
