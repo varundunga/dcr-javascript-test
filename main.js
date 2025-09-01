@@ -54,9 +54,33 @@ document.addEventListener('DOMContentLoaded', () => {
         tableData = chartData;
         break;
       case 'countries-in-region':
-
+        {
+          const regionCounts = {};
+          countriesData.forEach(c => {
+            regionCounts[c.region] = (regionCounts[c.region] || 0) + 1;
+          });
+          console.log(regionCounts)
+          chartData = Object.entries(regionCounts).map(([region, count]) => ({
+            label: region,
+            value: count
+          }));
+          tableData = chartData;
+          console.log(chartData)
+        }
         break;
       case 'unique-timezones-in-region':
+        {
+          const regionTimezones = {};
+          countriesData.forEach(c => {
+            if (!regionTimezones[c.region]) regionTimezones[c.region] = new Set();
+            (c.timezones || []).forEach(tz => regionTimezones[c.region].add(tz));
+          });
+          chartData = Object.entries(regionTimezones).map(([region, tzSet]) => ({
+            label: region,
+            value: tzSet.size
+          }));
+          tableData = chartData;
+        }
         break;
     }
     renderChart(chartData);
