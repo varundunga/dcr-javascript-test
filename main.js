@@ -30,13 +30,28 @@ document.addEventListener('DOMContentLoaded', () => {
         tableData = chartData;
         break;
       case 'borders':
-        console.log(option)
+        chartData = countriesData.map(c => ({
+          label: c.name,
+          value: c.borders ? c.borders.length : 0,
+          details: c
+        }));
+        tableData = chartData;
         break;
       case 'timezones':
-
+        chartData = countriesData.map(c => ({
+          label: c.name,
+          value: c.languages ? c.languages.length : 0,
+          details: c
+        }));
+        tableData = chartData;
         break;
       case 'languages':
-
+        chartData = countriesData.map(c => ({
+          label: c.name,
+          value: c.languages ? c.languages.length : 0,
+          details: c
+        }));
+        tableData = chartData;
         break;
       case 'countries-in-region':
 
