@@ -16,5 +16,27 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateVisuals() {
     const option = select.value;
     console.log("Selected option:", option);
+    let chartData = [];
+    let tableData = [];
+
+    switch(option) {
+      case 'population':
+        console.log(option)
+        break;
+      case 'borders':
+        console.log(option)
+        break;
+      case 'timezones':
+
+        break;
+      case 'languages':
+
+        break;
+      case 'countries-in-region':
+
+        break;
+      case 'unique-timezones-in-region':
+        break;
+    }
   }
 });
