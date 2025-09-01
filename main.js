@@ -4,8 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   fetch('./data/countries.json')
     .then(res => {
-        console.log(res)
-        return res.json()})
+      console.log(res)
+      return res.json()
+    })
     .then(data => {
       countriesData = data;
       updateVisuals();
@@ -19,13 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let chartData = [];
     let tableData = [];
 
-    switch(option) {
+    switch (option) {
       case 'population':
         chartData = countriesData.map(c => ({
           label: c.name,
           value: c.population,
           details: c
         }));
+        tableData = chartData;
         break;
       case 'borders':
         console.log(option)
@@ -43,8 +45,9 @@ document.addEventListener('DOMContentLoaded', () => {
         break;
     }
     renderChart(chartData);
+    renderTable(tableData);
   }
-    function renderChart(data) {
+  function renderChart(data) {
     // Clear previous chart
     d3.select('#chart').selectAll('*').remove();
 
@@ -74,12 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
       .attr('r', d => radiusScale(d.value))
       .attr('fill', '#69b3a2')
       .attr('stroke', '#333')
-      .on('mouseover', function(e, d) {
+      .on('mouseover', function (e, d) {
         showTooltip(e, d);
       })
       .on('mouseout', hideTooltip);
 
-    // Tooltip
     function showTooltip(e, d) {
       let html = `<strong>${d.label}</strong><br>Value: ${d.value}`;
       if (d.details) {
@@ -87,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       d3.select('body').append('div')
         .attr('id', 'tooltip')
-        
+
         .style('position', 'absolute')
         .style('left', (e.pageX + 10) + 'px')
         .style('top', (e.pageY + 10) + 'px')
@@ -100,5 +102,20 @@ document.addEventListener('DOMContentLoaded', () => {
     function hideTooltip() {
       d3.select('#tooltip').remove();
     }
+  }
+  function renderTable(data) {
+    const table = document.getElementById('data-table');
+    table.innerHTML = '';
+    if (data.length === 0) return;
+
+    const header = table.insertRow();
+    header.insertCell().textContent = 'Label';
+    header.insertCell().textContent = 'Value';
+
+    data.forEach(row => {
+      const tr = table.insertRow();
+      tr.insertCell().textContent = row.label;
+      tr.insertCell().textContent = row.value;
+    });
   }
 });
